@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Reporte de Proveedor</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+        }
+        h1 {
+          text-align: center;
+          margin-bottom: 20px;
+        }
+        h3 {
+          margin-top: 20px;
+          border-bottom: 1px solid #ddd;
+          padding-bottom: 5px;
+          display: flex;
+          align-items: center;
+        }
+        .icon {
+          margin-right: 10px;
+          font-size: 1.2rem;
+        }
+        table {
+          width: 100%;
+          border-collapse: collapse;
+          margin-top: 10px;
+        }
+        th, td {
+          border: 1px solid #ddd;
+          padding: 8px;
+          text-align: left;
+        }
+        th {
+          background-color: #f2f2f2;
+        }
+        .footer {
+          position: absolute;
+          bottom: 0;
+          width: 100%;
+          text-align: center;
+          padding: 10px;
+          background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+<h1>Reporte de Proveedor</h1>
+<h3><i class="fas fa-user icon"></i> &nbsp; Datos Personales del Proveedor</h3>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Direccion</th>
+        <th>Telefono</th>
+        <th>Sitio Web</th>
+    </tr>
+    <tr>
+        <td th:text="${proveedorDatos.getProveedor().getId()}"></td>
+        <td th:text="${proveedorDatos.getProveedor().getNombre()}"></td>
+        <td th:text="${proveedorDatos.getProveedor().getDireccion()}"></td>
+        <td th:text="${proveedorDatos.getProveedor().getTelefono()}"></td>
+        <td th:text="${proveedorDatos.getProveedor().getSitioweb()}"></td>
+    </tr>
+</table>
+<br>
+<h3><i class="fas fa-briefcase icon"></i>&nbsp; Clientes del Proveedor</h3>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Fecha de Nacimiento</th>
+        <th>Direccion</th>
+        <th>Telefono</th>
+        <th>Email</th>
+    </tr>
+    <tr th:each="cli : ${proveedorDatos.getCliente() }">
+        <td th:text="${cli.getId()}"></td>
+        <td th:text="${cli.getNombre()}"></td>
+        <td th:text="${#dates.format(cli.getFechaNac(), 'dd/MM/yyyy')}"></td>
+        <td th:text="${cli.getDireccion()}"></td>
+        <td th:text="${cli.getTelefono()}"></td>
+        <td th:text="${cli.getEmail()}"></td>
+    </tr>
+</table>
+<br>
+<h3><i class="fas fa-calendar-alt icon"></i>&nbsp; Historial de Productos del Proveedor</h3>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Cantidad</th>
+        <th>Precio</th>
+        <th>Fecha de Vencimiento</th>
+    </tr>
+    <tr th:each="prod : ${proveedorDatos.getProductos()}">
+        <td th:text="${prod.getId()}"></td>
+        <td th:text="${prod.getNombre() }"></td>
+        <td th:text="${prod.getCantidad() }"></td>
+        <td th:text="${prod.getPrecio() }"></td>
+        <td th:text="${#dates.format(prod.getFechaVencimiento(), 'dd/MM/yyyy')}"></td>
+    </tr>
+</table>
+
+<div class="footer">
+    Desarrollo de Servicios Web II - Prof. José Miguel Flores Ingaruca
+</div>
+
+</body>
+</html>
